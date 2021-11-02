@@ -57,19 +57,18 @@ public class UsersController {
     public String update(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult,
                          @RequestParam(value = "ADMIN", required = false) String ADMIN,
-                         @RequestParam(value = "USER", required = false) String USER, @PathVariable("id") int id) {
+                         @RequestParam(value = "USER", required = false) String USER) {
 
         Set<Role> roles = new HashSet<>();
         if (ADMIN != null) {
-            roles.add(new Role(2, ADMIN));
+            roles.add(new Role(1, ADMIN));
         }
         if (USER != null) {
-            roles.add(new Role(1, USER));
+            roles.add(new Role(2, USER));
         }
         if (ADMIN == null & USER == null) {
-            roles.add(new Role(1, USER));
+            roles.add(new Role(2, USER));
         }
-
         user.setRoles(roles);
         userService.update(user);
         return bindingResult.hasErrors() ? "user/new" : "redirect:/user";

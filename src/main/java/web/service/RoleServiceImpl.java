@@ -25,14 +25,6 @@ public class RoleServiceImpl implements RoleService {
         roleDao.save(role);
     }
 
-    public void update(Role role) {
-        roleDao.update(role);
-    }
-
-    public void delete(long id) {
-        roleDao.delete(id);
-    }
-
     public Role getRoleByName(String name) {
         return roleDao.getRoleByName(name);
     }

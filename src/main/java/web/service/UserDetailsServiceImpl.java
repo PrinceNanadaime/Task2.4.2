@@ -12,9 +12,8 @@ import web.models.User;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
     public UserDetailsServiceImpl(UserService userService) {
         this.userService = userService;
     }

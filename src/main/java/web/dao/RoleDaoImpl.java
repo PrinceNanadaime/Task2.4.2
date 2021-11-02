@@ -24,15 +24,6 @@ public class RoleDaoImpl implements RoleDao {
         entityManager.persist(role);
     }
 
-    @Override
-    public void update(Role role) {
-        entityManager.merge(role);
-    }
-
-    @Override
-    public void delete(long id) {
-        entityManager.remove(entityManager.find(Role.class, id));
-    }
 
     @Override
     public Role getRoleByName(String name) {

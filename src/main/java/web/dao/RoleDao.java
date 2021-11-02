@@ -10,9 +10,5 @@ public interface RoleDao {
 
     void save(Role role);
 
-    void update(Role role);
-
-    void delete(long id);
-
     Role getRoleByName(String name);
 }

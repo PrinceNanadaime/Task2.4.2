@@ -34,7 +34,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public void save(User user) {
-        user.setRoles(Set.of(roleService.getRoleByName("USER")));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }

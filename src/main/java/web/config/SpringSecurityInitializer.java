@@ -10,23 +10,17 @@ import web.service.RoleService;
 import web.service.UserService;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
 @ComponentScan("web")
 public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
-    private final User user;
-
-    private final User admin;
 
     private final UserService userService;
 
     private final RoleService roleService;
 
-    public SpringSecurityInitializer(User user, User admin, UserService userService, RoleService roleService) {
-        this.user = user;
-        this.admin = admin;
+    public SpringSecurityInitializer(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
@@ -36,6 +30,7 @@ public class SpringSecurityInitializer extends AbstractSecurityWebApplicationIni
         roleService.save(new Role("ADMIN"));
         roleService.save(new Role("USER"));
 
+        User user = new User();
         user.setName("Marc");
         user.setLastName("Hudson");
         user.setUsername("marc_hudson");
@@ -43,6 +38,7 @@ public class SpringSecurityInitializer extends AbstractSecurityWebApplicationIni
         user.setRoles(Set.of(roleService.getRoleByName("USER")));
         userService.save(user);
 
+        User admin = new User();
         admin.setName("Nikita");
         admin.setLastName("Kotenkov");
         admin.setUsername("nikita_kotenkov");

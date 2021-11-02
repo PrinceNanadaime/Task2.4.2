@@ -7,15 +7,15 @@
 <body>
 
 <form th:method="POST" th:action="@{/user}" th:object="${user}">
-    <label for="username">Enter name: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{name}">Name error</div>
 
     <br/>
 
-    <label for="surname">Surname: </label>
-    <input name="surname" type="text" th:field="*{surname}" id="surname"/>
-    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname error</div>
+    <label for="lastname">Surname: </label>
+    <input name="lastname" type="text" th:field="*{lastname}" id="lastname"/>
+    <div style="color:red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Surname error</div>
 
     <br/>
 
@@ -25,9 +25,9 @@
 
     <br/>
 
-    <label for="email">Email: </label>
-    <input name="email" type="text" th:field="*{email}" id="email"/>
-    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+    <label for="username">Email: </label>
+    <input name="username" type="text" th:field="*{username}" id="username"/>
+    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
 
     <br/>
 
@@ -37,8 +37,8 @@
 
     <br/>
 
-    <input type="checkbox"  th:id="2" name="ADMIN" value="ADMIN">ADMIN</p>
-    <input type="checkbox"  th:id="1"  name="USER" value="USER">USER</p>
+    <input type="checkbox"  th:id="1" name="ADMIN" value="ADMIN">ADMIN</p>
+    <input type="checkbox"  th:id="2"  name="USER" value="USER">USER</p>
 
     <input type="submit" value="Create"/>
 </form>

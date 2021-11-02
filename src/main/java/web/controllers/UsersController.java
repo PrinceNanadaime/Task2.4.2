@@ -22,15 +22,14 @@ public class UsersController {
     private final UserService userService;
     private final RoleService roleService;
 
-    @Autowired
     public UsersController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("user", userService.index());
+    public String getUsers(Model model) {
+        model.addAttribute("user", userService.getUsers());
         return "user/index";
     }
 
@@ -43,34 +42,12 @@ public class UsersController {
 
     @GetMapping("/new")
     public String newUser(@ModelAttribute User user, @ModelAttribute Role role) {
-        System.out.println("Get controller");
-        roleService.getRoles().forEach(System.out::println);
         return "user/new";
     }
 
-    @PostMapping
-    public String create(@RequestParam(value = "ADMIN", required = false) String ADMIN,
-                         @RequestParam(value = "USER", required = false) String USER, @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-
-        Set<Role> roles = new HashSet<>();
-        if (ADMIN != null) {
-            roles.add(new Role(2, ADMIN));
-        }
-        if (USER != null) {
-            roles.add(new Role(1, USER));
-        }
-        if (ADMIN == null & USER == null) {
-            roles.add(new Role(1, USER));
-        }
-
-        user.setRoles(roles);
-        userService.save(user);
-        return bindingResult.hasErrors() ? "user/new" : "redirect:/user";
-
-    }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.show(id));
         model.addAttribute("roles", roleService.getRoles());
         return "user/edit";
@@ -94,7 +71,7 @@ public class UsersController {
         }
 
         user.setRoles(roles);
-        userService.update(id, user);
+        userService.update(user);
         return bindingResult.hasErrors() ? "user/new" : "redirect:/user";
     }
 

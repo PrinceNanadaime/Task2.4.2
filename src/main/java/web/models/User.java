@@ -18,7 +18,7 @@ public class User implements UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @Column(name = "name")
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
@@ -52,13 +52,14 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User() {}
+    public User() {
+    }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public User(int id, String username, String lastName, byte age, String name, String password) {
+    public User(long id, String username, String lastName, byte age, String name, String password) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -109,7 +110,7 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -149,6 +150,6 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "Role: " +  roles;
+        return "Role: " + roles;
     }
 }

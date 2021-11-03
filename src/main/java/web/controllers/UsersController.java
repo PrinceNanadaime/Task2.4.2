@@ -40,13 +40,14 @@ public class UsersController {
         return "user/show";
     }
 
-    @GetMapping("/new")
-    public String newUser(@ModelAttribute User user, @ModelAttribute Role role) {
+    @PostMapping("/new")
+    public String newUser(@ModelAttribute User user, Model model) {
+        model.addAttribute("roles", roleService.getRoles());
         return "user/new";
     }
 
 
-    @GetMapping("/{id}/edit")
+    @PatchMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.show(id));
         model.addAttribute("roles", roleService.getRoles());
@@ -56,20 +57,9 @@ public class UsersController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult,
-                         @RequestParam(value = "ADMIN", required = false) String ADMIN,
-                         @RequestParam(value = "USER", required = false) String USER) {
+                         @RequestParam(value = "id") long id) {
 
-        Set<Role> roles = new HashSet<>();
-        if (ADMIN != null) {
-            roles.add(new Role(1, ADMIN));
-        }
-        if (USER != null) {
-            roles.add(new Role(2, USER));
-        }
-        if (ADMIN == null & USER == null) {
-            roles.add(new Role(2, USER));
-        }
-        user.setRoles(roles);
+        user.setRoles(Set.of(roleService.getRoleById(id)));
         userService.update(user);
         return bindingResult.hasErrors() ? "user/new" : "redirect:/user";
     }
